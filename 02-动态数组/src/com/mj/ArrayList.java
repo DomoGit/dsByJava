@@ -45,6 +45,10 @@ public class ArrayList<E> {
 	 * 清除
 	 */
 	public void clear() {
+		// 内存管理, 去掉不要的对象的引用
+		for (int i = 0; i < elements.length; i++) {
+			elements[i] = null;
+		}
 		size = 0;
 	}
 	
@@ -167,6 +171,8 @@ public class ArrayList<E> {
 			elements[i-1] = elements[i];
 		}
 		size--;
+		// 清空最后一个元素的引用
+		elements[size] = null;
 		return old;
 	}
 	

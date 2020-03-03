@@ -14,4 +14,12 @@ public class Person {
 	public String toString() {
 		return "Person [age=" + age + ", name=" + name + "]";
 	}
+	
+	// 这个方法相当于这个对象在死之前的遗言，最后可以做的事情
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		
+		System.out.println(this.toString() + ": finalize");
+	}
 }

@@ -10,6 +10,10 @@ public class Main {
 		
 		System.out.println(persons);
 		
+		persons.clear();
+		// 提醒JVM系统进行垃圾回收
+		System.gc();
+		
 		ArrayList<Integer> ints = new ArrayList<>();
 		ints.add(10);
 		ints.add(11);
