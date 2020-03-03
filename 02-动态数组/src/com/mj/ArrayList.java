@@ -1,10 +1,11 @@
 package com.mj;
 
-public class ArrayList {
+@SuppressWarnings("unchecked")
+public class ArrayList<E> {
 	// 数组大小
 	private int size;
 	// 存储空间
-	private int[] elements;
+	private E[] elements;
 	// 默认容量
 	private static final int DEFAULT_CAPACITY = 10;
 	// 不存在索引值
@@ -24,7 +25,8 @@ public class ArrayList {
 	public ArrayList(int capacity) {
 		size = 0;
 		capacity = (capacity < DEFAULT_CAPACITY) ? DEFAULT_CAPACITY : capacity;
-		elements = new int[capacity];
+		// 所有的类最终都继承 java.lang.Object, 然后强制转换成 E[]
+		elements = (E[]) new Object[capacity];
 	}
 	
 	protected void rangeCheck(int index) {
@@ -67,7 +69,7 @@ public class ArrayList {
 	 * @param element
 	 * @return
 	 */
-	public boolean contains(int element) {
+	public boolean contains(E element) {
 		return indexOf(element) != ELEMENT_NOT_FOUND;
 	}
 	
@@ -75,10 +77,10 @@ public class ArrayList {
 	 * 添加新元素
 	 * @param element
 	 */
-	public void add(int element) {
+	public void add(E element) {
 //		if (size == elements.length) {
 //			// 扩容
-//			int[] newElements = new int[elements.length*2];
+//			E[] newElements = new E[elements.length*2];
 //			for (int i = 0; i < elements.length; i++) {
 //				newElements[i] = elements[i];
 //			}
@@ -95,7 +97,7 @@ public class ArrayList {
 	 * @param index
 	 * @return
 	 */
-	public int get(int index) {
+	public E get(int index) {
 		rangeCheck(index);
 		return elements[index];
 	}
@@ -106,9 +108,9 @@ public class ArrayList {
 	 * @param element
 	 * @return
 	 */
-	public int set(int index, int element) {
+	public E set(int index, E element) {
 		rangeCheck(index);
-		int old = elements[index];
+		E old = elements[index];
 		elements[index] = element;
 		return old;
 	}
@@ -119,11 +121,11 @@ public class ArrayList {
 	 * @param element
 	 * @return
 	 */
-	public void add(int index, int element) {
+	public void add(int index, E element) {
 		rangeCheckForAdd(index);
 		if (size == elements.length) {
 			// 扩容
-			int[] newElements = new int[elements.length*2];
+			E[] newElements = (E[]) new Object[elements.length*2];
 			for (int i = 0; i < elements.length; i++) {
 				newElements[i] = elements[i];
 			}
@@ -144,7 +146,7 @@ public class ArrayList {
 		int oldCapacity = elements.length;
 		if (capacity < oldCapacity) {
 			// 扩容
-			int[] newElements = new int[oldCapacity*2];
+			E[] newElements = (E[]) new Object[oldCapacity*2];
 			for (int i = 0; i < size; i++) {
 				newElements[i] = elements[i];
 			}
@@ -157,9 +159,9 @@ public class ArrayList {
 	 * @param index
 	 * @return
 	 */
-	public int remove(int index) {
+	public E remove(int index) {
 		rangeCheck(index);
-		int old = elements[index];
+		E old = elements[index];
 		// 后面的元素前移
 		for (int i = index+1; i < size; i++) {
 			elements[i-1] = elements[i];
@@ -173,7 +175,7 @@ public class ArrayList {
 	 * @param element
 	 * @return
 	 */
-	public int indexOf(int element) {
+	public int indexOf(E element) {
 		for (int i = 0; i < size; i++) {
 			if (elements[i] == element) {
 				return i;
