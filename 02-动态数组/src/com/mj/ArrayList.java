@@ -182,10 +182,19 @@ public class ArrayList<E> {
 	 * @return
 	 */
 	public int indexOf(E element) {
-		for (int i = 0; i < size; i++) {
-			// 注意这里是如何判断相等的, ==指的是判断对象的内存地址是否相等
-			if (elements[i].equals(element)) {
-				return i;
+		// 该 arrayList 可以存null, 所以这里要特殊判断 null 的情况
+		if (element == null) {
+			for (int i = 0; i < size; i++) {
+				if (elements[i] == null) {
+					return i;
+				}
+			}
+		} else {
+			for (int i = 0; i < size; i++) {
+				// 注意这里是如何判断相等的, == 指的是判断对象的内存地址是否相等
+				if (elements[i].equals(element)) {
+					return i;
+				}
 			}
 		}
 		return ELEMENT_NOT_FOUND;
