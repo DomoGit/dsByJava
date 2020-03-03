@@ -176,6 +176,13 @@ public class ArrayList<E> {
 		return old;
 	}
 	
+	public void remove(E element) {
+		int index = indexOf(element);
+		if (index != ELEMENT_NOT_FOUND) {
+			remove(index);
+		}
+	}
+	
 	/**
 	 * 查找元素的索引
 	 * @param element
