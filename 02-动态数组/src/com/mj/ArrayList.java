@@ -183,7 +183,8 @@ public class ArrayList<E> {
 	 */
 	public int indexOf(E element) {
 		for (int i = 0; i < size; i++) {
-			if (elements[i] == element) {
+			// 注意这里是如何判断相等的, ==指的是判断对象的内存地址是否相等
+			if (elements[i].equals(element)) {
 				return i;
 			}
 		}
