@@ -1,4 +1,4 @@
-package com.mj;
+//package com.mj;
 
 public class Main {
 
@@ -20,6 +20,8 @@ public class Main {
 		ints.add(12);
 		ints.add(20);
 		System.out.println(ints);
+		
+		java.util.ArrayList<E>
 	}
 
 }

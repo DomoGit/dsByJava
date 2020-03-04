@@ -4,6 +4,7 @@ package com.mj;
 public class LinkedList<E> {
 	private int size;
 	private Node<E> first;
+	private final static int ELEMENT_NOT_FOUND = -1;
 	
 	private static class Node<E> {
 		E element; // 自己存储的元素
@@ -13,6 +14,11 @@ public class LinkedList<E> {
 			super();
 			this.element = element;
 			this.nextNode = nextNode;
+		}
+
+		@Override
+		public String toString() {
+			return element.toString();
 		}
 	}
 	
@@ -35,6 +41,7 @@ public class LinkedList<E> {
 	}
 	
 	public void add(int index, E element) {
+		// 【重要】特殊处理第一个情况
 		if (index == 0) {
 			first = new Node<E>(element, first);
 		} else {
@@ -56,13 +63,35 @@ public class LinkedList<E> {
 	}
 	
 	public E remove(int index) {
-		// todo
-		return null;
+		Node<E> deleteNode = first;
+		// 【重要】特殊处理第一个情况
+		if (index == 0) {
+			first = deleteNode != null ? deleteNode.nextNode : null;
+		} else {
+			Node<E> prev = node(index-1);
+			deleteNode = prev.nextNode;
+			prev.nextNode = deleteNode.nextNode;
+		}
+		size--;
+		return deleteNode != null ? deleteNode.element : null;
 	}
 	
 	public int indexOf(E element) {
-		// todo
-		return 0;
+		Node<E> node = first;
+		// 【注意】链表可以存 null 的情况
+		if (element == null) {
+			for (int i = 0; i < size; i++) {
+				if (node.element == null) return i;
+				node = node.nextNode;
+			}
+		} else {
+			for (int i = 0; i < size; i++) {
+				// 注意判断相等
+				if (node.element.equals(element)) return i;
+				node = node.nextNode;
+			}
+		}
+		return ELEMENT_NOT_FOUND;
 	}
 	
 	// 返回index索引上的节点【关键！这个函数可以简化其他函数的编写逻辑】
@@ -80,4 +109,26 @@ public class LinkedList<E> {
 			throw new IndexOutOfBoundsException("索引越界, index: " + index + ", size: " + size);
 		}
 	}
+
+	@Override
+	public String toString() {
+		Node<E> node = first;
+		StringBuffer stringBuffer = new StringBuffer();
+		stringBuffer.append("LinkedList [size=" + size);
+		
+//		// while 遍历的方式
+//		while (node != null) {
+//			// do something...
+//			node = node.nextNode;
+//		}
+		
+		for (int i = 0; i < size; i++) {
+			stringBuffer.append(", index: " + i + " => " + node);
+			node = node.nextNode;
+		}
+		stringBuffer.append("]");
+		return stringBuffer.toString();
+	}
+	
+	
 }
